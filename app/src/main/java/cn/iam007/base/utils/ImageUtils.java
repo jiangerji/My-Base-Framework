@@ -10,7 +10,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -97,7 +97,7 @@ public class ImageUtils {
         // 设置图片的缓存的位置
         File cacheDir = getExtCacheDirImage(context);
         File reserveCacheDir = getInternalCacheDirImage(context);
-        UnlimitedDiscCache discCache = new UnlimitedDiscCache(cacheDir,
+        UnlimitedDiskCache discCache = new UnlimitedDiskCache(cacheDir,
                 reserveCacheDir, new Md5FileNameGenerator());
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
@@ -221,8 +221,8 @@ public class ImageUtils {
             textPaint.setTextSize(18.0f);
             textPaint.setTypeface(Typeface.DEFAULT_BOLD);
             textPaint.setColor(Color.RED);
-            float baseX = CanvasText.getWidth()-100;
-            float baseY = CanvasText.getHeight()-20;
+            float baseX = CanvasText.getWidth() - 100;
+            float baseY = CanvasText.getHeight() - 20;
             canvas.drawText("蓝港拆图", baseX, baseY, textPaint);
             canvas.save(Canvas.ALL_SAVE_FLAG);
             canvas.restore();
