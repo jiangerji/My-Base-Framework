@@ -1,0 +1,31 @@
+<resources>
+
+    <style name="WindowAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/zoom_out_center</item>
+        <item name="android:activityCloseEnterAnimation">@anim/zoom_in_center</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+        <item name="android:taskOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:taskOpenExitAnimation">@anim/zoom_out_center</item>
+        <item name="android:taskCloseEnterAnimation">@anim/zoom_in_center</item>
+        <item name="android:taskCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
+        <!--toolbar的背景颜色-->
+        <item name="colorPrimary">@color/primary</item>
+        
+        <!--statubar的背景颜色-->
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        
+        <!--android系统控件的颜色-->
+        <item name="colorAccent">@color/red_light_EB5347</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:windowBackground">@color/iam007_activity_background_color</item>
+
+        <item name="android:windowAnimationStyle">@style/WindowAnimation</item>
+    </style>
+
+</resources>

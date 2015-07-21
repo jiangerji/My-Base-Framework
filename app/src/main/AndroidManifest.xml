@@ -1,0 +1,52 @@
+<manifest package="cn.iam007.base"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <application
+        android:allowBackup="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".WebViewActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <service
+            android:name=".Iam007Service"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+
+        <!-- LeanCloud Begin -->
+        <!-- leancloud用于表示渠道来源 -->
+        <!--<meta-data android:name="leancloud" android:value="Offical"/>-->
+
+        <!-- leancloud用于表示渠道来源 -->
+        <meta-data
+            android:name="leancloud"
+            android:value="Offical"/>
+
+        <meta-data
+            android:name="leancloud_app_id"
+            android:value="_leancloud_app_id_"/>
+
+        <meta-data
+            android:name="leancloud_app_key"
+            android:value="_leancloud_app_key_"/>
+        <!-- LeanCloud End -->
+
+    </application>
+
+</manifest>
