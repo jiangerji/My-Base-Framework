@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Typeface;
+import android.os.Environment;
 import android.provider.Settings.Secure;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -148,6 +149,16 @@ public class PlatformUtils {
     public synchronized static String id(Context context) {
         if (sID == null) {
             File installation = new File(context.getFilesDir(), INSTALLATION);
+            String state = Environment.getExternalStorageState();
+            if (state.equalsIgnoreCase(Environment.MEDIA_MOUNTED) ||
+                    state.equalsIgnoreCase(Environment.MEDIA_MOUNTED_READ_ONLY)) {
+                File cacheDir =
+                        new File(Environment.getExternalStorageDirectory(),
+                                "." + context.getPackageName());
+                cacheDir.mkdirs();
+                installation = new File(cacheDir, INSTALLATION);
+            }
+
             try {
                 if (!installation.exists()) {
                     writeInstallationFile(context, installation);
