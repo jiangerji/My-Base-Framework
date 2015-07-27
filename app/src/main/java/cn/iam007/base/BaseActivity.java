@@ -287,7 +287,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private MaterialDialog mProgressDialog = null;
 
-    protected MaterialDialog showProgressDialog() {
+    public MaterialDialog showProgressDialog() {
         DialogBuilder builder = new DialogBuilder(this);
         builder.progress(true, 100);
         builder.content("加载中...");
@@ -297,7 +297,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return mProgressDialog;
     }
 
-    protected void dismissProgressDialog() {
+    public void dismissProgressDialog() {
         if (mProgressDialog != null) {
             try {
                 mProgressDialog.dismiss();
