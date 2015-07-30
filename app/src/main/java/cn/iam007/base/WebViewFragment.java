@@ -1,4 +1,4 @@
-package cn.iam007.kepler4520;
+package cn.iam007.base;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -36,7 +36,7 @@ public class WebViewFragment extends BaseFragment {
     }
 
     void init(View rootView) {
-        mWebView = (WebView) rootView.findViewById(cn.iam007.base.R.id.webview);
+        mWebView = (WebView) rootView.findViewById(R.id.webview);
 
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
