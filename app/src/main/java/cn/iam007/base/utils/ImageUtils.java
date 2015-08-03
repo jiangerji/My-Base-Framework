@@ -8,8 +8,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.widget.ImageView;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseStream;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -20,13 +25,16 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
+import cn.iam007.base.BuildConfig;
 import cn.iam007.base.R;
 
 
@@ -104,7 +112,8 @@ public class ImageUtils {
                 context).threadPriority(Thread.NORM_PRIORITY + 1)
                 .threadPoolSize(5).denyCacheImageMultipleSizesInMemory()
                 .memoryCache(new WeakMemoryCache()).diskCache(discCache)
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .tasksProcessingOrder(QueueProcessingType.LIFO).imageDownloader(
+                        new Iam007ImageDownloader(context))
                 .build();
 
         // Initialize ImageLoader with configuration.
@@ -252,5 +261,36 @@ public class ImageUtils {
 
     public static void clearCache() {
         ImageLoader.getInstance().clearMemoryCache();
+    }
+
+    static class Iam007ImageDownloader extends BaseImageDownloader {
+
+        public Iam007ImageDownloader(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected InputStream getStreamFromNetwork(String imageUri, Object extra) {
+            LogUtil.d("show", "getStreamFromNetwork:" + imageUri);
+            String encodedUrl = Uri.encode(imageUri, "@#&=*+-_.,:!?()/~\'%");
+            String userAgent =
+                    "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0";
+            HttpUtils httpUtils = new HttpUtils(userAgent);
+            try {
+                ResponseStream responseStream =
+                        httpUtils.sendSync(HttpRequest.HttpMethod.GET, encodedUrl);
+                if (BuildConfig.DEBUG) {
+                    int statusCode = responseStream.getStatusCode();
+                    long length = responseStream.getContentLength();
+                    LogUtil.d("Status Code:" + statusCode);
+                    LogUtil.d("Length:" + length);
+                }
+                return responseStream.getBaseStream();
+            } catch (HttpException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
     }
 }
