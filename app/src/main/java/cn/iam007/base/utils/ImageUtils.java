@@ -271,7 +271,6 @@ public class ImageUtils {
 
         @Override
         protected InputStream getStreamFromNetwork(String imageUri, Object extra) {
-            LogUtil.d("show", "getStreamFromNetwork:" + imageUri);
             String encodedUrl = Uri.encode(imageUri, "@#&=*+-_.,:!?()/~\'%");
             String userAgent =
                     "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0";
@@ -279,12 +278,6 @@ public class ImageUtils {
             try {
                 ResponseStream responseStream =
                         httpUtils.sendSync(HttpRequest.HttpMethod.GET, encodedUrl);
-                if (BuildConfig.DEBUG) {
-                    int statusCode = responseStream.getStatusCode();
-                    long length = responseStream.getContentLength();
-                    LogUtil.d("Status Code:" + statusCode);
-                    LogUtil.d("Length:" + length);
-                }
                 return responseStream.getBaseStream();
             } catch (HttpException e) {
                 e.printStackTrace();

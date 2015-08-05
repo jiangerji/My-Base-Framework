@@ -1,4 +1,4 @@
-package cn.iam007.pic.clean.master.base;
+package cn.iam007.base;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,6 @@ import android.view.View;
 import com.avos.avoscloud.AVAnalytics;
 
 import cn.iam007.base.utils.PlatformUtils;
-import cn.iam007.base.BaseActivity;
 
 /**
  * Created by Administrator on 2015/6/2.

@@ -26,8 +26,11 @@ dependencies {
     compile 'com.afollestad:material-dialogs:0.7.4.2'
 
     //avoscloud-sdk 为 LeanCloud基础包
-    compile 'cn.leancloud.android:avoscloud-sdk:v3.3+'
+    compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
+
+    // avoscloud-statistics 为 LeanCloud统计包
+    compile 'cn.leancloud.android:avoscloud-statistics:v3.+@aar'
 
     //avoscloud-feedback 为 LeanCloud 用户反馈包
-    compile 'cn.leancloud.android:avoscloud-feedback:v3.3+@aar'
+    compile 'cn.leancloud.android:avoscloud-feedback:v3.+@aar'
 }

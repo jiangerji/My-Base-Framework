@@ -1,7 +1,5 @@
 package cn.iam007.base.utils;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,13 +18,12 @@ public class UriUtils {
      *
      * @param context
      * @param imageUri
-     * @author yaoxing
-     * @date 2014-10-12
      */
-    @TargetApi(19)
     public static String getImageAbsolutePath(Context context, Uri imageUri) {
-        if (context == null || imageUri == null)
+        if (context == null || imageUri == null) {
             return null;
+        }
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(
                 context, imageUri)) {
             if (isExternalStorageDocument(imageUri)) {

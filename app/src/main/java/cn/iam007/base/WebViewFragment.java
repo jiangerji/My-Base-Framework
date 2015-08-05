@@ -13,8 +13,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import cn.iam007.pic.clean.master.base.BaseFragment;
-
 /**
  * Created by Administrator on 2015/6/5.
  */
