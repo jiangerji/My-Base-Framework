@@ -8,14 +8,15 @@
     <color name="iam007_edittext_hint_color">#6E6E6E</color>
     <color name="iam007_edittext_color">@color/black_light_333333</color>
 
-    <color name="red_light_EB5347">#EB5347</color>
+    <color name="red_light_normal">#EB5347</color>
+    <color name="red_light_pressed">#DB5347</color>
 
     <color name="black_light_333333">#333333</color>
     <color name="black_light_222222">#222222</color>
     <color name="white_light_FAFAFA">#FAFAFA</color>
 
     <color name="iam007_dialog_title">#666666</color>
-    <color name="iam007_dialog_positive">@color/red_light_EB5347</color>
+    <color name="iam007_dialog_positive">@color/red_light_normal</color>
     <color name="iam007_dialog_negative">@color/black_light_333333</color>
     <color name="iam007_dialog_background">@color/white_light_FAFAFA</color>
     <color name="iam007_divider">#D8D8D8</color>

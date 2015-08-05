@@ -1,7 +1,10 @@
 package cn.iam007.base.utils;
 
+import android.graphics.Color;
 import android.graphics.Point;
 import android.view.View;
+
+import com.balysv.materialripple.MaterialRippleLayout;
 
 /**
  * Created by Administrator on 2015/7/7.
@@ -18,5 +21,19 @@ public class ViewUtils {
         location.set(viewLocation[0] - targetLocation[0], viewLocation[1] - targetLocation[1]);
 
         return location;
+    }
+
+    /**
+     * 对view设置涟漪效果
+     *
+     * @param view 需要设置涟漪效果的view
+     */
+    public static void applyRippleEffect(View view) {
+        MaterialRippleLayout.on(view)
+                .rippleColor(Color.WHITE)
+                .rippleAlpha(0.2f)
+                .rippleHover(true)
+                .rippleOverlay(true)
+                .create();
     }
 }

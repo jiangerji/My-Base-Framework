@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -23,6 +23,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:support-v4:22.2.0'
 
+    // 适配5.0的涟漪效果, 这个最低版本为14，如果需要适配到10以前，需要源码级别修改
+    compile 'com.balysv:material-ripple:1.0.2'
+
+    // 5.0风格的dialog
     compile 'com.afollestad:material-dialogs:0.7.4.2'
 
     //avoscloud-sdk 为 LeanCloud基础包
