@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="iam007_dialog_loading_hint">加载中&#8230;</string>
+
     <!-- 更新相关Start -->
     <string name="update_dialog_title">版本更新</string>
     <string name="update_dialog_content">发现新版本：%1$s\n%2$s</string>

@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +19,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.avos.avoscloud.AVAnalytics;
 
 import java.util.List;
 
@@ -200,11 +202,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        AVAnalytics.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        AVAnalytics.onPause(this);
     }
 
     @Override
@@ -290,11 +294,28 @@ public abstract class BaseActivity extends AppCompatActivity {
     public MaterialDialog showProgressDialog() {
         DialogBuilder builder = new DialogBuilder(this);
         builder.progress(true, 100);
+        builder.content(getString(R.string.iam007_dialog_loading_hint));
+        builder.cancelable(false);
+        mProgressDialog = builder.show();
+
+        return mProgressDialog;
+    }
+
+    public MaterialDialog showProgressDialog(String content) {
+        if (TextUtils.isEmpty(content)) {
+            content = getString(R.string.iam007_dialog_loading_hint);
+        }
+        DialogBuilder builder = new DialogBuilder(this);
+        builder.progress(true, 100);
         builder.content("加载中...");
         builder.cancelable(false);
         mProgressDialog = builder.show();
 
         return mProgressDialog;
+    }
+
+    public MaterialDialog showProgressDialog(int resId) {
+        return showProgressDialog(getString(resId));
     }
 
     public void dismissProgressDialog() {
