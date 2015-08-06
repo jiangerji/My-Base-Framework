@@ -220,6 +220,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setContentView(int layoutResID) {
         View.inflate(this, layoutResID, mContainer);
         PlatformUtils.applyFonts(this, mContainer);
+        PlatformUtils.applyRippleEffect(mContainer);
     }
 
     @Override
@@ -307,7 +308,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         DialogBuilder builder = new DialogBuilder(this);
         builder.progress(true, 100);
-        builder.content("加载中...");
+        builder.content(content);
         builder.cancelable(false);
         mProgressDialog = builder.show();
 

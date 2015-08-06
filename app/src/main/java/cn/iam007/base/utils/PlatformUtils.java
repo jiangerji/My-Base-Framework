@@ -12,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.File;
@@ -246,6 +247,27 @@ public class PlatformUtils {
         Typeface font = Typeface.createFromAsset(context.getAssets(),
                 "fonts/RobotoCondensed-Light.ttf");
         applyFonts(view, font);
+    }
+
+    /**
+     * 为当前的View中的button设置涟漪效果
+     *
+     * @param v
+     */
+    public static void applyRippleEffect(View v) {
+        try {
+            if (v instanceof ViewGroup) {
+                ViewGroup vg = (ViewGroup) v;
+                for (int i = 0; i < vg.getChildCount(); i++) {
+                    View child = vg.getChildAt(i);
+                    applyRippleEffect(child);
+                }
+            } else if (v instanceof Button) {
+                ViewUtils.applyRippleEffect(v);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -7,12 +7,13 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 public class SharedPreferenceUtil {
 
-    private final static String PREDERENCE_NAME = "crop.master";
+    private static String PREDERENCE_NAME = "SharedPreferenceUtil";
 
     private static Context context;
 
     public static void init(Context _context) {
         context = _context;
+        PREDERENCE_NAME = _context.getPackageName();
     }
 
     public static void setBoolean(String key, Boolean value) {
