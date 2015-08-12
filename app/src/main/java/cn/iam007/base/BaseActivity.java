@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -75,14 +76,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         mTintManager = new SystemBarTintManager(this);
-        if (notDisplayStatusbar()) {
-            mTintManager.setStatusBarTintEnabled(false);
-        } else {
-            mTintManager.setStatusBarTintEnabled(true);
-            mTintManager.setStatusBarTintResource(R.color.primary);
+        if (!useDefaultSystemBar()) {
+            if (notDisplayStatusbar()) {
+                mTintManager.setStatusBarTintEnabled(false);
+            } else {
+                mTintManager.setStatusBarTintEnabled(true);
+                mTintManager.setStatusBarTintResource(R.color.primary);
+            }
+            mTintManager.setNavigationBarTintEnabled(true);
+            mTintManager.setNavigationBarTintResource(R.color.primary);
         }
-        mTintManager.setNavigationBarTintEnabled(true);
-        mTintManager.setNavigationBarTintResource(R.color.primary);
 
 
         mContainer = (FrameLayout) findViewById(R.id.container);
@@ -90,11 +93,66 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView();
     }
 
+    /**
+     * 获取状态栏的高度
+     *
+     * @return
+     */
+    public final int getStatusBarHeight() {
+        return mTintManager.getConfig().getStatusBarHeight();
+    }
+
+    /**
+     * 获取导航栏的高度
+     *
+     * @return
+     */
+    public final int getNavBarHeight() {
+        return mTintManager.getConfig().getNavigationBarHeight();
+    }
+
+    public final void requestStatusBarVisibility(boolean visibility) {
+        if (visibility) {
+            mTintManager.requestStatusBarShow();
+        } else {
+            mTintManager.requestStatusBarHidden();
+        }
+    }
+
+    /**
+     * 是否使用SystemBarTintManager来适配沉浸式
+     * 目前的SystemBarTintManager会导致系统全屏时，需要statusbar在activity内容之上的设置失败
+     *
+     * @return false表示启用SystemBarTintManager
+     */
+    protected boolean useDefaultSystemBar() {
+        return false;
+    }
+
+    /**
+     * 是否显示toolbar
+     *
+     * @return
+     */
     protected boolean notDisplayToolbar() {
         return false;
     }
 
+    /**
+     * 是否显示statusbar
+     *
+     * @return
+     */
     protected boolean notDisplayStatusbar() {
+        return false;
+    }
+
+    /**
+     * toolbar是否浮动在activity内容上
+     *
+     * @return
+     */
+    protected boolean toolbarOverlay() {
         return false;
     }
 
@@ -112,6 +170,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         if (notDisplayToolbar()) {
             mToolbar.setVisibility(View.GONE);
+        }
+
+        if (!toolbarOverlay()) {
+            RelativeLayout.LayoutParams layoutParams =
+                    (RelativeLayout.LayoutParams) mContainer.getLayoutParams();
+            layoutParams.addRule(RelativeLayout.BELOW, R.id.toolbar);
         }
 
         // 设置debug彩蛋
