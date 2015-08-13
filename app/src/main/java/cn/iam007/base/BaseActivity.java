@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -25,6 +26,7 @@ import com.avos.avoscloud.AVAnalytics;
 import java.util.List;
 
 import cn.iam007.base.utils.DialogBuilder;
+import cn.iam007.base.utils.LogUtil;
 import cn.iam007.base.utils.PlatformUtils;
 
 /**
@@ -392,5 +394,42 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }
         mProgressDialog = null;
+    }
+
+    // 上次按下返回键的时间
+    private long mPreBackPressedTS = 0;
+    private Toast mExitHintToast = null;
+
+    private Handler mToastHandler = new Handler();
+
+    @Override
+    public void onBackPressed() {
+        if (isLaunchActivity()) {
+
+            LogUtil.d("onBackPressed!");
+            long currentTS = System.currentTimeMillis();
+            if (currentTS - mPreBackPressedTS < 3000) {
+                super.onBackPressed();
+            }
+
+            if (mExitHintToast != null) {
+                mExitHintToast.cancel();
+            }
+            mExitHintToast = Toast.makeText(this, R.string.iam007_exit_hint, Toast.LENGTH_SHORT);
+            mExitHintToast.show();
+            mPreBackPressedTS = currentTS;
+
+            mToastHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mExitHintToast != null) {
+                        mExitHintToast.cancel();
+                        mExitHintToast = null;
+                    }
+                }
+            }, 3000);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

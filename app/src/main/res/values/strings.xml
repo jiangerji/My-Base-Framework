@@ -16,4 +16,6 @@
     <string name="update_dialog_detail_title">新特性</string>
     <!-- 更新相关End -->
 
+    <string name="iam007_exit_hint">再按一次退出程序</string>
+
 </resources>
